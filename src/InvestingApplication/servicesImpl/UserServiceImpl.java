@@ -3,6 +3,7 @@ package InvestingApplication.servicesImpl;
 import java.util.HashMap;
 import java.util.Map;
 
+import InvestingApplication.exceptions.UserNotFoundException;
 import InvestingApplication.models.User;
 import InvestingApplication.services.UserService;
 
@@ -20,10 +21,10 @@ public class UserServiceImpl implements UserService {
 	}
 	
 	public User getUser(String name) {
-		if(userData.containsKey(name)) {
-			return userData.get(name);
+		if(!userData.containsKey(name)) {
+			throw new UserNotFoundException("Error: User not found");
 		}
-		return null;
+		return userData.get(name);
 	}
 }
 /*
