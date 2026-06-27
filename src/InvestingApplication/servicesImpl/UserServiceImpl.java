@@ -3,6 +3,7 @@ package InvestingApplication.servicesImpl;
 import java.util.HashMap;
 import java.util.Map;
 
+import InvestingApplication.exceptions.DuplicateUserException;
 import InvestingApplication.exceptions.UserNotFoundException;
 import InvestingApplication.models.User;
 import InvestingApplication.services.UserService;
@@ -12,7 +13,7 @@ public class UserServiceImpl implements UserService {
 	
 	public void addUser(User user) {
 		if(userData.containsKey(user.getName())) {
-			System.out.println("User already existed with the given name");
+			throw new DuplicateUserException("User already existed with the given name");
 		}
 		else {
 		userData.put(user.getName(), user);

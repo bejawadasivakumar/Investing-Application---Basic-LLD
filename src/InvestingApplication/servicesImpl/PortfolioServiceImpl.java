@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import InvestingApplication.exceptions.InsufficientBalanceException;
 import InvestingApplication.models.PortfolioProfilePerUser;
 import InvestingApplication.models.Stock;
 import InvestingApplication.models.TradingBuyOrSell;
@@ -32,13 +33,9 @@ public class PortfolioServiceImpl implements PortfolioService{
 	public void buyStock(String userName, String symbol, int qty) {
 		User user = userService.getUser(userName);
 		Stock stock = stockService.getStock(symbol);
-		if(user == null || stock == null) {
-			System.out.println("user or stock is not there..");
-			return;
-		}
 		double price = stock.getPrice() * qty;
 		if(user.getBalance() < price) {
-			System.out.println("balance insufficent to buy the stock");
+			throw new InsufficientBalanceException("balance insufficent to buy the stock");
 		}
 		else {
 		user.setBalance(user.getBalance() - price);
@@ -105,6 +102,4 @@ public class PortfolioServiceImpl implements PortfolioService{
 		
 		return profiles.get(userName);
 	}	
-	
-
 }

@@ -1,5 +1,9 @@
 package InvestingApplication;
 
+import InvestingApplication.exceptions.DuplicateStockException;
+import InvestingApplication.exceptions.DuplicateUserException;
+import InvestingApplication.exceptions.InsufficientBalanceException;
+import InvestingApplication.exceptions.StockNotFoundException;
 import InvestingApplication.exceptions.UserNotFoundException;
 import InvestingApplication.models.Stock;
 import InvestingApplication.models.User;
@@ -87,7 +91,11 @@ public class InvestingApplicationMain {
 	            System.out.println("\nPortfolio");
 	            System.out.println(portfolioService.profile("siva"));
 
-	        } catch (UserNotFoundException e) {
+	        } catch (UserNotFoundException |
+	                StockNotFoundException |
+	                DuplicateUserException |
+	                DuplicateStockException |
+	                InsufficientBalanceException e) {
 
 	            System.out.println("Error: " + e.getMessage());
 
